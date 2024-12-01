@@ -34,7 +34,6 @@ def get_db_connection():
     # print(DB_NAME)
     return connection
 
-
 def check_record_exists(table_name, value):
     try:
         connection = get_db_connection()
@@ -73,14 +72,15 @@ def create_word(table_name,word):
         flag = True
         return flag
     
-def get_all_words(table_name):
+def get_all_words_fn(table_name):
     # print("ENTRÓ EN FUNCIÓN 2")
     connection = get_db_connection()
     cursor = connection.cursor()
 
     # Obtener las palabras de la tabla correspondiente
     cursor.execute(f"SELECT word FROM {table_name}")
-    words = cursor.fetchall()
+    # words = cursor.fetchall()
+    words = [word[0] for word in cursor.fetchall()]
 
     # Cerrar la conexión
     cursor.close()
@@ -88,7 +88,7 @@ def get_all_words(table_name):
 
     return words
 
-def get_a_word(table_name):
+def get_a_word_fn(table_name):
     connection = get_db_connection()
     cursor = connection.cursor()
 
@@ -107,7 +107,7 @@ def get_a_word(table_name):
 
     return word
 
-def remove_word (table_name,word):
+def remove_word_fn (table_name,word):
     connection = get_db_connection()
     cursor = connection.cursor()
     
@@ -132,8 +132,7 @@ def remove_word (table_name,word):
         return flag
     else:
         return flag
-        
-    
+         
 def move_word(source_table: str, target_table: str, word: str):
     try: 
         connection = get_db_connection()
