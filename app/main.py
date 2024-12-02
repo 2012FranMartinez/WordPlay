@@ -1,6 +1,6 @@
 from fastapi import FastAPI,HTTPException
 # from app.models.database import create_word, get_words  
-from app.models.database import * 
+from app.bbdd.database import * 
 from pydantic import BaseModel
 
 import logging
@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 from fastapi import FastAPI
-from .models.init_db import create_tables  # Importar la función para crear tablas
+from .bbdd.init_db import create_tables  # Importar la función para crear tablas
 
 app = FastAPI()
 
@@ -25,7 +25,7 @@ class Get_table(BaseModel):
 
 @app.get("/")
 async def home():
-    return {"message": "Welcome to WordPlay API ;)"}
+    return {"Welcome to WordPlay API ;)"}
 
 @app.post("/add_word/")
 async def add_word(word:Word):

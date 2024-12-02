@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordPlay</title>
+  <link rel="stylesheet" href="style.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+  <h1>WordPlay: Aprende inglés jugando</h1>
+  <div class="word">Palabra: <b>example</b></div>
+  <input type="text" class="chat-box" placeholder="Escribe una frase usando la palabra...">
+  <br>
+  <!-- Botón Traducir -->
+  <button class="btn-traducir" onclick="mostrarTraduccion()">Traducir</button>
+
+  <!-- Contenedor para mostrar traducción -->
+  <div id="resultado-traduccion" class="translation" style="display: none;">
+    <p><b>Traducción:</b> Ejemplo</p>
+    <p class="example">Ejemplo de frase: *This is an example of a great idea.*</p>
+  </div>
+
+  <!-- Botón Jugar (posicionado en la esquina inferior derecha) -->
+  <a href="jugar.html"><button class="btn-jugar">Jugar</button></a>
+
+  <script>
+    // Función para mostrar la traducción y el ejemplo
+    function mostrarTraduccion() {
+      const resultadoDiv = document.getElementById('resultado-traduccion');
+      resultadoDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
