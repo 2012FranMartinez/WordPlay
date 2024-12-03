@@ -1,1 +1,6 @@
-__pycache__\n*.pyc\n.git\n.vscode\nnode_modules
+__pycache__
+*.pyc
+.git
+.vscode
+node_modules
+.env

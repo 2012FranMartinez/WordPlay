@@ -1,6 +1,7 @@
 from fastapi import FastAPI,HTTPException
 # from app.models.database import create_word, get_words  
-from app.bbdd.database import * 
+import sys
+
 from pydantic import BaseModel
 
 import logging
@@ -8,7 +9,11 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 from fastapi import FastAPI
-from .bbdd.init_db import create_tables  # Importar la función para crear tablas
+from llm_langchain import *
+
+sys.path.append('../')
+from bbdd.init_db import create_tables  # Importar la función para crear tablas
+from bbdd.database import * 
 
 app = FastAPI()
 
@@ -22,6 +27,8 @@ class Word(BaseModel):
     word: str
 class Get_table(BaseModel):
     table_name:str
+class Sentence(BaseModel): 
+    sentence: str
 
 @app.get("/")
 async def home():
@@ -77,3 +84,15 @@ async def get_a_word(get_table:Get_table):
         return dict({"word": word})
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"An error occurred: {str(e)}")
+
+@app.post("/get_model_response/") 
+async def get_model_response_api(sentence: Sentence): 
+    try: 
+        api_key = "YOUR_HUGGINGFACE_API_KEY" 
+        model = "microsoft/Phi-3.5-mini-instruct" 
+        formatted_prompt = format_prompt(sentence.sentence) 
+        response = get_model_response(api_key, model, formatted_prompt) 
+        return {"response": response} 
+    except Exception as e: raise HTTPException(status_code=400, detail=f"An error occurred: {str(e)}")
+
+

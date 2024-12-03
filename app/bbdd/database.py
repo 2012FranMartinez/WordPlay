@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import pymysql
 
-print("SI HA ENTRADO EN INIT DATABASE.py")
+# print("SI HA ENTRADO EN INIT DATABASE.py")
 
 # db = pymysql.connect(host = os.getenv('MYSQL_HOST'),
 #                      user = os.getenv('MYSQL_USER'),
@@ -95,17 +95,27 @@ def get_a_word_fn(table_name):
     # Obtener una palabra de la tabla correspondiente
     cursor.execute(f"""SELECT word FROM {table_name}
                         ORDER BY RAND() LIMIT 1""")
+    
     word = cursor.fetchone()
+    
     if word:
         print(f"Palabra aleatoria: {word[0]}")
     else:
         print("No se encontró ninguna palabra.")
+    
+    # if word: 
+    #     print(f"Palabra aleatoria: {word[0]}") 
+    #     result = word[0] 
+    # else: 
+    #     print("No se encontró ninguna palabra.") 
+    #     result = None
 
     # Cerrar la conexión
+    
     cursor.close()
     connection.close()
 
-    return word
+    return word[0]
 
 def remove_word_fn (table_name,word):
     connection = get_db_connection()
